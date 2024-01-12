@@ -2,3 +2,9 @@
   background-color: bisque;
   border: solid blue;
 } */
+
+#search-button, #search-input {
+  width: 100%;
+  margin: 2px;
+  padding: 3px;
+}

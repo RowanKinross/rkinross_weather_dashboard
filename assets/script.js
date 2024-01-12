@@ -1,8 +1,9 @@
-const APIKey = apiKey //insert own API key here
+const APIKey = apiKey //<--insert own API key here
 const searchHistory = $(`#history`)
 var city = ``;
+const today = $(`#today`);
 
-// submit event when a user searches for a city
+//SUBMIT event when a user searches for a city
 $(`#search-form`).on(`submit`, function(e){
   e.preventDefault()
   city = $(`#search-input`).val().trim().toUpperCase()
@@ -12,15 +13,19 @@ $(`#search-form`).on(`submit`, function(e){
   const cityButton = $(`<button>`).text(city).addClass(`btn btn-outline-primary m-1`).attr(`city-name`, city)
   searchHistory.prepend(cityButton);
   }
-}) // <-- end of search form submit
+})
 
-//click event when a user clicks on search history
+//CLICK event when a user clicks on search history
 searchHistory.on(`click`, function(e){
   e.preventDefault()
   city = e.target.innerHTML
   console.log(city)
   loadWeatherInfo()
 })
+
+
+
+
 
 function loadWeatherInfo() {
   //to find lat/lon from the city name:
@@ -43,7 +48,7 @@ fetch(queryURL)
     })
     .then(function (data) {
       // The city name
-
+      const cityName = $(`<p>`).text(city).addClass(`cityName`)
       // The date
       // An icon representation of weather conditions
       // The temperature
@@ -51,6 +56,7 @@ fetch(queryURL)
       // The wind speed
       //all the fetch data in an object
       console.log(data);
+      today.append(cityName)
 
       
       
