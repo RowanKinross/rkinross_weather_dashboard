@@ -6,7 +6,7 @@ $(`#search-form`).on(`submit`, function(e){
 
   if (city != ``){
 
-  const APIKey = [insert your api key];
+  const APIKey = apiKey
   const queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIKey}`;
 
 
