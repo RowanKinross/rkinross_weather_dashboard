@@ -2,18 +2,21 @@ const APIKey = apiKey //<--insert own API key here
 const searchHistory = $(`#history`)
 var city = ``;
 const today = $(`#today`);
+const forecast = $(`#forecast`)
+
 
 //SUBMIT event when a user searches for a city
 $(`#search-form`).on(`submit`, function(e){
   e.preventDefault()
   city = $(`#search-input`).val().trim().toUpperCase()
   if (city != ``){
-  loadWeatherInfo()
-
-  const cityButton = $(`<button>`).text(city).addClass(`btn btn-outline-primary m-1`).attr(`city-name`, city)
-  searchHistory.prepend(cityButton);
+    loadWeatherInfo()
+    const cityButton = $(`<button>`).text(city).addClass(`btn btn-outline-primary m-1`).attr(`city-name`, city)
+    searchHistory.prepend(cityButton);
   }
 })
+
+
 
 //CLICK event when a user clicks on search history
 searchHistory.on(`click`, function(e){
@@ -27,8 +30,6 @@ searchHistory.on(`click`, function(e){
 
 
 function loadWeatherInfo() {
-  
-  
   //to find lat/lon from the city name:
   const queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIKey}`;
   
@@ -39,8 +40,6 @@ function loadWeatherInfo() {
     return response.json();
   })
   .then(function (data) {
-
-
 
 
     //for today's weather url =
@@ -82,9 +81,26 @@ function loadWeatherInfo() {
       return response.json()
     })
     .then(function (data) {
+      console.log(data)
       //all the fetch data in an object
-     
+    forecast.empty()
 
+    // The date
+    const a = dayjs()
+
+    for (let i=0; i<5; i++ ){
+      const forecastDate = a.add(i, 'day').format('DD/MM/YYYY')
+      console.log(forecastDate)
+      $('#dayTitle').text(forecastDate);
+
+
+
+    }
+    // An icon representation of weather conditions
+
+    // The temperature
+    // The humidity
+    // When a user click on a city in the search history they are again presented with current and future conditions for that city
 
 
 
@@ -104,9 +120,12 @@ function loadWeatherInfo() {
 //! The humidity
 //! The wind speed
 
-// When a user view future weather conditions for that city they are presented with a 5-day forecast that displays:
+// When a user views future weather conditions for that city they are presented with a 5-day forecast that displays:
 // The date
 // An icon representation of weather conditions
 // The temperature
 // The humidity
 // When a user click on a city in the search history they are again presented with current and future conditions for that city
+
+//store search history in local
+//default today's weather display to most recently appended - first child?
