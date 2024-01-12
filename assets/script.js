@@ -5,11 +5,12 @@ var city = ``;
 // submit event when a user searches for a city
 $(`#search-form`).on(`submit`, function(e){
   e.preventDefault()
-  city = $(`#search-input`).val()
+  city = $(`#search-input`).val().trim().toUpperCase()
   if (city != ``){
-  const cityButton = $(`<button>`).text(city).addClass(`btn`).attr(`city-name`, city)
-  searchHistory.prepend(cityButton);
   loadWeatherInfo()
+
+  const cityButton = $(`<button>`).text(city).addClass(`btn btn-outline-primary m-1`).attr(`city-name`, city)
+  searchHistory.prepend(cityButton);
   }
 }) // <-- end of search form submit
 
