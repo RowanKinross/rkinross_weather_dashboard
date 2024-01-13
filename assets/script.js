@@ -3,16 +3,46 @@ const searchHistory = $(`#history`)
 var city = ``;
 const today = $(`#today`);
 const forecast = $(`#forecast`)
+var searchEntriesArr = [];
 
+
+
+localStorageCities = localStorage.getItem(`cities`)
+if (localStorageCities != null){
+  searchEntriesArr = localStorageCities.split(`,`);
+  console.log(searchEntriesArr)
+}
+prependCityButton()
+
+
+function prependCityButton(){
+  searchHistory.empty()
+  if (searchEntriesArr != null){
+  for (let i=0; i<searchEntriesArr.length; i++){
+    const cityButton = $(`<button>`).text(searchEntriesArr[i]).addClass(`btn btn-outline-primary m-1`).attr(`city-name`, city)
+    searchHistory.prepend(cityButton);
+  }
+}
+}
+
+if (searchEntriesArr != null){
+  city = searchEntriesArr[searchEntriesArr.length-1]
+  loadWeatherInfo()
+}
 
 //SUBMIT event when a user searches for a city
 $(`#search-form`).on(`submit`, function(e){
   e.preventDefault()
   city = $(`#search-input`).val().trim().toUpperCase()
   if (city != ``){
+    // add the city to the search entries array
+    searchEntriesArr.push(city)
+    // load the weather info for that city
     loadWeatherInfo()
-    const cityButton = $(`<button>`).text(city).addClass(`btn btn-outline-primary m-1`).attr(`city-name`, city)
-    searchHistory.prepend(cityButton);
+    // add the city as a button in the search history
+    prependCityButton()
+    // set the array in local storage
+    localStorage.setItem(`cities`, searchEntriesArr)
   }
 })
 
@@ -52,6 +82,7 @@ function loadWeatherInfo() {
       //first clear old today entries
       today.empty()
       
+
       // New today's data entries:
       const date = dayjs().format('DD/MM/YYYY') // The date
       const cityNameDate = $(`<h3>`).text(`${city} (today: ${date}) - ${data.weather[0].description}`).addClass(`cityName `) // City Name
@@ -111,25 +142,12 @@ function loadWeatherInfo() {
   }) // <-- end of find lat & lon fetch function
 } // <--end of loadWeatherInfo function
 
+//to do:
+  //ReadMe
+  //Github Secrets for API key
+  //Deploy & Screenshot/gif
+  //submit
 
-//! Create a weather dashboard with form inputs.
-//! When a user searches for a city they are presented with current and future conditions for that city and 
-    //!that city is added to the search history
-//! When a user views the current weather conditions for that city they are presented with:
-//! The city name
-//! The date
-//! An icon representation of weather conditions
-//! The temperature
-//! The humidity
-//! The wind speed
-
-//! When a user views future weather conditions for that city they are presented with a 5-day forecast that displays:
-//! The date
-//! An icon representation of weather conditions
-//! The temperature
-//! The humidity
-//! When a user click on a city in the search history they are again presented with current and future conditions for that city
-
-//store search history in local
-//default today's weather display to most recently appended - first child?
-//take the city name from the API - error - take from first url (non-lat/lon)
+//Optional:
+  //Styling
+  //limit search history length
