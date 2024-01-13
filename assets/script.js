@@ -41,7 +41,6 @@ function loadWeatherInfo() {
   })
   .then(function (data) {
 
-
     //for today's weather url =
     const weatherQueryUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&appid=${APIKey}`
     //fetch today's weather with new url
@@ -72,7 +71,7 @@ function loadWeatherInfo() {
 
 
     //for 5 day forecast url =
-    const forecastQueryUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&cnt=5&units=metric&appid=${APIKey}`
+    const forecastQueryUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${data[0].lat}&lon=${data[0].lon}&units=metric&appid=${APIKey}`
 
     
     //fetch 5 day forecast with new url
@@ -81,27 +80,31 @@ function loadWeatherInfo() {
       return response.json()
     })
     .then(function (data) {
-      console.log(data)
+      // console.log(data)
       //all the fetch data in an object
     forecast.empty()
 
     // The date
     const a = dayjs()
 
-    for (let i=0; i<5; i++ ){
+    for (let i=1; i<6; i++ ){
+      //date = dayjs() plus 1 day for each card
       const forecastDate = a.add(i, 'day').format('DD/MM/YYYY')
-      console.log(forecastDate)
-      $('#dayTitle').text(forecastDate);
+      //arr for each forecast day card
+      const forecastDayArr = data.list[i*8-1]
+      const foreTemp = $(`<p>`).text(`Temp: ${Math.round(forecastDayArr.main.temp)}°C`) 
+      const foreHumidity = $(`<p>`).text(`Humidity: ${forecastDayArr.main.humidity}%`)
+      const foreWind = $(`<p>`).text(`Wind: ${forecastDayArr.wind.speed}m/s`)
+      const foreIcon = $(`<img src="https://openweathermap.org/img/wn/${forecastDayArr.weather[0].icon}.png" id="image" alt="" class="icon" />`)
 
+      
+      //make a forecast bootstrap card:
+      const forecastH4 = $(`<h5 class="card-title dayTitle">`).text(forecastDate)
+      const forecastBody = $(`<div class="card-body dayBody">`).append(forecastH4, foreIcon, foreTemp, foreWind, foreHumidity)
+      const forecastCard = $(`<div class="card day bg-primary-subtle border border-primary-subtle p-1 m-1" style="width: 11rem;">`).append(forecastBody)
+      forecast.append(forecastCard);
 
-
-    }
-    // An icon representation of weather conditions
-
-    // The temperature
-    // The humidity
-    // When a user click on a city in the search history they are again presented with current and future conditions for that city
-
+   }
 
 
     }) // <-- end of 5 day forecast fetch function
@@ -120,12 +123,13 @@ function loadWeatherInfo() {
 //! The humidity
 //! The wind speed
 
-// When a user views future weather conditions for that city they are presented with a 5-day forecast that displays:
-// The date
-// An icon representation of weather conditions
-// The temperature
-// The humidity
-// When a user click on a city in the search history they are again presented with current and future conditions for that city
+//! When a user views future weather conditions for that city they are presented with a 5-day forecast that displays:
+//! The date
+//! An icon representation of weather conditions
+//! The temperature
+//! The humidity
+//! When a user click on a city in the search history they are again presented with current and future conditions for that city
 
 //store search history in local
 //default today's weather display to most recently appended - first child?
+//take the city name from the API - error - take from first url (non-lat/lon)
