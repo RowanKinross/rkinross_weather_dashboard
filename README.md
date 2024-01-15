@@ -14,7 +14,7 @@ The following image and gif show the appearance, usage and user interface of the
 ### screen-capture:
 ![dashboard screen-capture](./assets/images/rkinross_weather_dashboard_screencapture.png)
 ### gif demo:
-![dashboard demo]()
+![dashboard demo](./assets/images/weather_dashboard_screen_recording.gif)
 
 ## Installation
 n/a
