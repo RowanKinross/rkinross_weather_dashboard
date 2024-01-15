@@ -73,7 +73,7 @@ searchHistory.on(`click`, function(e){
 function loadWeatherInfo() {
   if (city != ``){
   //to find lat/lon from the city name:
-  const queryURL = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIKey}`;
+  const queryURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${APIKey}`;
   
   
   // fetch call to find lat & lon for another queryURL
