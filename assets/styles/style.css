@@ -1,5 +1,6 @@
+/* styling on search button and input */
 #search-button, #search-input {
-  width: 100%;
+  width: 100%; /* make full width of container */
   margin: 2px;
   padding: 3px;
 }
