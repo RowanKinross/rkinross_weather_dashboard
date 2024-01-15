@@ -1,6 +1,6 @@
 # Weather Dashboard
 
-#### Project status
+## Project status
 Development for this project is on pause, for now.
 
 ## Description
