@@ -1,4 +1,4 @@
-const APIKey = apiKey //<--insert own API key here
+const APIKey = `f16903f83403c53d9b83a9d5eea27e70` //<--insert own API key here
 const searchHistory = $(`#history`)
 var city = ``;
 var cityArr = []
