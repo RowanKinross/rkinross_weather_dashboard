@@ -155,9 +155,3 @@ function loadWeatherInfo() {
     }) // <-- end of 5 day forecast fetch function
   }) // <-- end of find lat & lon fetch function
 }} // <--end of loadWeatherInfo function
-
-//to do:
-  //ReadMe
-  //Github Secrets for API key
-  //Deploy & Screenshot/gif
-  //submit
